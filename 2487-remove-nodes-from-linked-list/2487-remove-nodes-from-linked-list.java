@@ -8,7 +8,7 @@
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
-class Solution {
+/*class Solution {
     public ListNode removeNodes(ListNode head) {
         Stack<Integer> stack=new Stack<>(); 
         ListNode curr=head; 
@@ -25,6 +25,32 @@ class Solution {
         while(!stack.isEmpty())
         {
             ListNode newNode=new ListNode(stack.pop()); 
+            newNode.next=newHead;
+            newHead=newNode; 
+        }
+        return newHead; 
+
+        }
+        
+    }*/
+//now using the address :
+class Solution {
+    public ListNode removeNodes(ListNode head) {
+        Stack<ListNode> stack=new Stack<>(); 
+        ListNode curr=head; 
+        while(curr!=null)
+        {
+            while(!stack.isEmpty()&&stack.peek().val<curr.val)
+            {
+                stack.pop(); 
+            }
+            stack.push(curr); 
+            curr=curr.next;
+        }
+        ListNode newHead=null; 
+        while(!stack.isEmpty())
+        {
+            ListNode newNode=stack.pop(); 
             newNode.next=newHead;
             newHead=newNode; 
         }
